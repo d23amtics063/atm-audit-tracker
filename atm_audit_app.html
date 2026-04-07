@@ -1,383 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ATM Audit System</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0d0f14;
-  --surface: #151820;
-  --surface2: #1c2030;
-  --surface3: #232840;
-  --border: #2a3050;
-  --border2: #3a4570;
-  --accent: #4f8ef7;
-  --accent2: #3a7aef;
-  --accent-glow: rgba(79,142,247,0.18);
-  --green: #34d399;
-  --red: #f87171;
-  --amber: #fbbf24;
-  --text: #e8eaf2;
-  --text2: #8b93b0;
-  --text3: #5a6080;
-  --mono: 'IBM Plex Mono', monospace;
-  --sans: 'IBM Plex Sans', sans-serif;
-  --radius: 10px;
-  --radius-sm: 6px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ATM Audit System</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0f14; --surface: #151820; --surface2: #1c2030;
+            --border: #2a3050; --accent: #4f8ef7; --green: #34d399;
+            --red: #f87171; --text: #e8eaf2; --text2: #8b93b0;
+        }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
 
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  font-size: 14px;
-  -webkit-font-smoothing: antialiased;
-}
+        /* Login Layout */
+        #login-screen { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 30px; width: 100%; max-width: 360px; }
+        
+        /* App Layout */
+        #app-screen { display: none; flex-direction: column; min-height: 100vh; }
+        .topbar { background: var(--surface); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+        .stat-item { background: var(--surface); padding: 15px; text-align: center; }
+        .stat-val { font-family: 'IBM Plex Mono'; font-weight: 600; font-size: 1.2rem; color: var(--accent); }
+        .stat-lab { font-size: 0.7rem; color: var(--text2); text-transform: uppercase; margin-top: 4px; }
 
-/* ── LOGIN ── */
-#login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%), var(--bg);
-}
+        .container { padding: 15px; max-width: 1000px; margin: 0 auto; width: 100%; }
+        
+        /* Inputs & Tables */
+        input { background: var(--surface2); border: 1px solid var(--border); color: white; padding: 10px; border-radius: 6px; outline: none; width: 100%; font-size: 14px; }
+        input:focus { border-color: var(--accent); }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .full { grid-column: span 2; }
+        
+        .btn { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .btn-p { background: var(--accent); color: white; width: 100%; }
+        .btn-d { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); font-size: 12px; }
 
-.login-card {
-  width: 100%;
-  max-width: 380px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 40px 32px 36px;
-  position: relative;
-  overflow: hidden;
-}
+        .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th { text-align: left; padding: 12px; font-size: 11px; color: var(--text2); text-transform: uppercase; border-bottom: 1px solid var(--border); }
+        td { padding: 10px; border-bottom: 1px solid var(--border); }
 
-.login-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), #a78bfa, var(--green));
-}
-
-.login-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-
-.login-logo-icon {
-  width: 40px; height: 40px;
-  background: var(--accent-glow);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-}
-
-.login-logo-text { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
-.login-logo-sub { font-size: 11px; color: var(--text3); font-family: var(--mono); letter-spacing: 1px; text-transform: uppercase; }
-.login-title { font-size: 22px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.3px; }
-.login-sub { font-size: 13px; color: var(--text2); margin-bottom: 28px; }
-
-.field { margin-bottom: 16px; }
-.field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; font-family: var(--mono); }
-.field input {
-  width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  color: var(--text); font-family: var(--mono); font-size: 14px; padding: 11px 14px; outline: none; transition: all 0.2s;
-}
-.field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-
-#login-error {
-  display: none; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
-  color: var(--red); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; margin-bottom: 16px;
-}
-
-.btn-primary {
-  width: 100%; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm);
-  font-weight: 600; padding: 13px; cursor: pointer; transition: all 0.15s;
-}
-.btn-primary:active { transform: scale(0.98); background: var(--accent2); }
-
-/* ── APP ── */
-#app-screen { display: none; min-height: 100vh; flex-direction: column; }
-
-.topbar {
-  background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px;
-  display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200;
-}
-
-.topbar-left { display: flex; align-items: center; gap: 10px; }
-.topbar-title { font-family: var(--mono); font-size: 14px; font-weight: 600; }
-.topbar-badge { background: var(--accent-glow); border: 1px solid var(--border2); color: var(--accent); font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 20px; }
-
-.btn-logout { background: var(--surface2); border: 1px solid var(--border); color: var(--text2); border-radius: var(--radius-sm); font-size: 12px; padding: 6px 12px; cursor: pointer; }
-.btn-logout:hover { border-color: var(--red); color: var(--red); }
-
-.stats-bar { display: flex; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
-.stat-cell { flex: 1; background: var(--surface); padding: 10px 14px; text-align: center; }
-.stat-num { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--accent); }
-.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; font-family: var(--mono); margin-top: 3px; }
-
-.main { flex: 1; padding: 16px; max-width: 1000px; margin: 0 auto; width: 100%; }
-
-.add-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; position: relative; }
-.add-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
-
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-.form-grid .full { grid-column: 1 / -1; }
-.form-input { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); padding: 10px 12px; width: 100%; outline: none; }
-.form-input:focus { border-color: var(--accent); }
-
-.btn-add { background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 600; padding: 12px; cursor: pointer; width: 100%; }
-
-.search-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-#search-input { flex: 1; background: none; border: none; color: var(--text); outline: none; font-size: 14px; }
-
-.table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.table-scroll { overflow-x: auto; }
-table { width: 100%; min-width: 800px; border-collapse: collapse; }
-thead th { background: var(--surface3); font-family: var(--mono); font-size: 10px; color: var(--text3); padding: 12px; text-align: left; border-bottom: 1px solid var(--border); text-transform: uppercase; }
-tbody tr { border-bottom: 1px solid var(--border); }
-tbody tr:hover { background: rgba(255,255,255,0.02); }
-td { padding: 8px; }
-
-.cell-input { background: transparent; border: 1px solid transparent; color: var(--text); padding: 6px; width: 100%; border-radius: 4px; outline: none; }
-.cell-input:focus { background: var(--surface3); border-color: var(--accent); }
-.map-link { color: var(--accent); text-decoration: none; font-size: 11px; font-family: var(--mono); margin-top: 4px; display: inline-block; }
-
-.btn-del { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); color: var(--red); padding: 4px 8px; border-radius: 4px; cursor: pointer; }
-
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: center; justify-content: center; }
-.overlay.show { display: flex; }
-.confirm-card { background: var(--surface); border: 1px solid var(--border2); padding: 24px; border-radius: var(--radius); max-width: 300px; text-align: center; }
-
-.save-toast { position: fixed; bottom: 20px; right: 20px; background: var(--green); color: #000; padding: 8px 16px; border-radius: 20px; font-weight: 600; opacity: 0; transition: 0.3s; pointer-events: none; }
-.save-toast.show { opacity: 1; }
-</style>
+        .map-link { color: var(--accent); text-decoration: none; font-size: 11px; margin-top: 5px; display: block; }
+        #error { color: var(--red); font-size: 13px; margin-bottom: 10px; display: none; }
+    </style>
 </head>
 <body>
 
 <div id="login-screen">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="login-logo-icon">🏧</div>
-      <div>
-        <div class="login-logo-text">ATM Audit</div>
-        <div class="login-logo-sub">Internal Portal</div>
-      </div>
+    <div class="card">
+        <h2 style="margin-bottom: 20px;">ATM Audit Login</h2>
+        <div id="error">Invalid Credentials</div>
+        <input type="text" id="user" placeholder="Username" style="margin-bottom: 10px;">
+        <input type="password" id="pass" placeholder="Password" style="margin-bottom: 20px;">
+        <button class="btn btn-p" onclick="login()">Sign In</button>
     </div>
-    <div class="login-title">Sign In</div>
-    <div class="field">
-      <label>Username</label>
-      <input type="text" id="uname" placeholder="harshkiller">
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" id="pword" placeholder="••••••••">
-    </div>
-    <div id="login-error">⚠ Invalid credentials</div>
-    <button class="btn-primary" onclick="doLogin()">Sign In →</button>
-  </div>
 </div>
 
 <div id="app-screen">
-  <div class="topbar">
-    <div class="topbar-left">
-      <span class="topbar-title">ATM Audit</span>
-      <span class="topbar-badge" id="badge-count">0 ATMs</span>
-    </div>
-    <button class="btn-logout" onclick="doLogout()">Logout</button>
-  </div>
-
-  <div class="stats-bar">
-    <div class="stat-cell"><div class="stat-num" id="s-total">0</div><div class="stat-label">Total</div></div>
-    <div class="stat-cell"><div class="stat-num" id="s-filled" style="color:var(--green)">0</div><div class="stat-label">Filled</div></div>
-    <div class="stat-cell"><div class="stat-num" id="s-maps" style="color:var(--accent)">0</div><div class="stat-label">Maps</div></div>
-  </div>
-
-  <div class="main">
-    <div class="add-card">
-      <div class="form-grid">
-        <input class="form-input" id="f-terminal" placeholder="Terminal Number">
-        <input class="form-input" id="f-area" placeholder="Area">
-        <input class="form-input full" id="f-address" placeholder="Full Address">
-        <input class="form-input full" id="f-maps" placeholder="Google Maps URL">
-      </div>
-      <button class="btn-add" onclick="addATM()">+ ADD NEW ATM</button>
+    <div class="topbar">
+        <strong>🏧 ATM AUDIT</strong>
+        <button class="btn btn-d" onclick="logout()">Logout</button>
     </div>
 
-    <div class="search-card">
-      <span>🔍</span>
-      <input id="search-input" placeholder="Search by terminal or area..." oninput="filterTable()">
+    <div class="stats">
+        <div class="stat-item"><div class="stat-val" id="st-total">0</div><div class="stat-lab">Total</div></div>
+        <div class="stat-item"><div class="stat-val" id="st-fill" style="color:var(--green)">0</div><div class="stat-lab">Filled</div></div>
+        <div class="stat-item"><div class="stat-val" id="st-map" style="color:var(--accent)">0</div><div class="stat-lab">Maps</div></div>
     </div>
 
-    <div class="table-card">
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:50px">Sr</th>
-              <th>Terminal</th>
-              <th>Address</th>
-              <th>Area</th>
-              <th>Map</th>
-              <th style="width:80px">Action</th>
-            </tr>
-          </thead>
-          <tbody id="table-body"></tbody>
-        </table>
-      </div>
+    <div class="container">
+        <div class="card" style="max-width: none;">
+            <div class="form-grid">
+                <input id="f-term" placeholder="Terminal #">
+                <input id="f-area" placeholder="Area">
+                <input id="f-addr" class="full" placeholder="Address">
+                <input id="f-map" class="full" placeholder="Google Maps URL">
+            </div>
+            <button class="btn btn-p" onclick="addATM()">+ ADD TERMINAL</button>
+        </div>
+
+        <input type="text" id="search" placeholder="🔍 Search Terminals..." oninput="render()" style="margin-top: 20px;">
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Sr</th><th>Terminal</th><th>Address</th><th>Area</th><th>Map</th><th>Action</th></tr>
+                </thead>
+                <tbody id="list"></tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
-
-<div class="overlay" id="confirm-overlay">
-  <div class="confirm-card">
-    <h3>Delete ATM?</h3>
-    <p style="color:var(--text2); margin: 10px 0 20px;">This cannot be undone.</p>
-    <button class="btn-logout" onclick="closeConfirm()">Cancel</button>
-    <button class="btn-del" onclick="confirmDelete()" style="padding:8px 16px; margin-left:10px">Delete</button>
-  </div>
-</div>
-
-<div class="save-toast" id="toast">Saved</div>
 
 <script>
-const CREDS = { user: 'harshkiller', pass: 'honey853' };
-const DATA_KEY = 'atm_audit_data_v3';
+    const CREDS = { u: 'harshkiller', p: 'honey853' };
+    const KEY = 'atm_data_v1';
 
-// ── AUTH LOGIC ──
-function doLogin() {
-    const u = document.getElementById('uname').value;
-    const p = document.getElementById('pword').value;
-    if(u === CREDS.user && p === CREDS.pass) {
-        sessionStorage.setItem('atm_auth', 'true');
-        showApp();
-    } else {
-        document.getElementById('login-error').style.display = 'block';
+    function login() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+        if(u === CREDS.u && p === CREDS.p) {
+            sessionStorage.setItem('auth', '1');
+            init();
+        } else {
+            document.getElementById('error').style.display = 'block';
+        }
     }
-}
 
-function doLogout() {
-    sessionStorage.removeItem('atm_auth');
-    location.reload();
-}
-
-function showApp() {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app-screen').style.display = 'flex';
-    renderTable();
-}
-
-// ── DATA LOGIC ──
-function getData() {
-    return JSON.parse(localStorage.getItem(DATA_KEY)) || [];
-}
-
-function saveData(data) {
-    localStorage.setItem(DATA_KEY, JSON.stringify(data));
-    updateStats();
-    const t = document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2000);
-}
-
-function addATM() {
-    const t = document.getElementById('f-terminal').value;
-    const ar = document.getElementById('f-area').value;
-    const ad = document.getElementById('f-address').value;
-    const m = document.getElementById('f-maps').value;
-
-    if(!t && !ad) return alert("Please enter Terminal or Address");
-
-    const data = getData();
-    data.push({ id: Date.now(), terminal: t, area: ar, address: ad, maps: m });
-    saveData(data);
-    
-    // Clear inputs
-    ['f-terminal','f-area','f-address','f-maps'].forEach(id => document.getElementById(id).value = '');
-    renderTable();
-}
-
-let deleteId = null;
-function requestDelete(id) {
-    deleteId = id;
-    document.getElementById('confirm-overlay').classList.add('show');
-}
-
-function closeConfirm() {
-    document.getElementById('confirm-overlay').classList.remove('show');
-}
-
-function confirmDelete() {
-    let data = getData().filter(x => x.id !== deleteId);
-    saveData(data);
-    closeConfirm();
-    renderTable();
-}
-
-function updateCell(id, field, value) {
-    const data = getData();
-    const index = data.findIndex(x => x.id === id);
-    if(index > -1) {
-        data[index][field] = value;
-        saveData(data);
+    function logout() {
+        sessionStorage.clear();
+        location.reload();
     }
-}
 
-function renderTable() {
-    const tbody = document.getElementById('table-body');
-    const data = getData();
-    tbody.innerHTML = '';
+    function getData() { return JSON.parse(localStorage.getItem(KEY)) || []; }
+    function setData(d) { localStorage.setItem(KEY, JSON.stringify(d)); render(); }
 
-    data.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td style="font-family:var(--mono); color:var(--text3)">${index + 1}</td>
-            <td><input class="cell-input" value="${item.terminal}" onchange="updateCell(${item.id}, 'terminal', this.value)"></td>
-            <td><input class="cell-input" value="${item.address}" onchange="updateCell(${item.id}, 'address', this.value)"></td>
-            <td><input class="cell-input" value="${item.area}" onchange="updateCell(${item.id}, 'area', this.value)"></td>
-            <td>
-                <input class="cell-input" style="color:var(--accent)" value="${item.maps}" onchange="updateCell(${item.id}, 'maps', this.value)">
-                ${item.maps ? `<a href="${item.maps}" target="_blank" class="map-link">View Map ↗</a>` : ''}
-            </td>
-            <td><button class="btn-del" onclick="requestDelete(${item.id})">Del</button></td>
-        `;
-        tbody.appendChild(tr);
-    });
-    updateStats();
-}
+    function addATM() {
+        const t = document.getElementById('f-term').value;
+        if(!t) return;
+        const d = getData();
+        d.push({ id: Date.now(), t, ar: document.getElementById('f-area').value, ad: document.getElementById('f-addr').value, m: document.getElementById('f-map').value });
+        ['f-term','f-area','f-addr','f-map'].forEach(i => document.getElementById(i).value = '');
+        setData(d);
+    }
 
-function filterTable() {
-    const q = document.getElementById('search-input').value.toLowerCase();
-    const rows = document.querySelectorAll('#table-body tr');
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(q) ? '' : 'none';
-    });
-}
+    function del(id) { if(confirm('Delete?')) setData(getData().filter(x => x.id !== id)); }
 
-function updateStats() {
-    const data = getData();
-    document.getElementById('s-total').innerText = data.length;
-    document.getElementById('badge-count').innerText = data.length + ' ATMs';
-    document.getElementById('s-filled').innerText = data.filter(x => x.terminal).length;
-    document.getElementById('s-maps').innerText = data.filter(x => x.maps).length;
-}
+    function update(id, field, val) {
+        const d = getData();
+        const i = d.findIndex(x => x.id === id);
+        d[i][field] = val;
+        localStorage.setItem(KEY, JSON.stringify(d));
+        updateStats(); // Quiet save
+    }
 
-// ── INIT ──
-if(sessionStorage.getItem('atm_auth')) showApp();
+    function updateStats() {
+        const d = getData();
+        document.getElementById('st-total').innerText = d.length;
+        document.getElementById('st-fill').innerText = d.filter(x => x.t).length;
+        document.getElementById('st-map').innerText = d.filter(x => x.m).length;
+    }
+
+    function render() {
+        const query = document.getElementById('search').value.toLowerCase();
+        const list = document.getElementById('list');
+        const data = getData();
+        list.innerHTML = '';
+        
+        data.forEach((item, idx) => {
+            if(item.t.toLowerCase().includes(query) || item.ar.toLowerCase().includes(query)) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color:var(--text2)">${idx + 1}</td>
+                    <td><input value="${item.t}" onchange="update(${item.id},'t',this.value)"></td>
+                    <td><input value="${item.ad}" onchange="update(${item.id},'ad',this.value)"></td>
+                    <td><input value="${item.ar}" onchange="update(${item.id},'ar',this.value)"></td>
+                    <td>
+                        <input value="${item.m}" onchange="update(${item.id},'m',this.value)" style="color:var(--accent)">
+                        ${item.m ? `<a href="${item.m}" target="_blank" class="map-link">Open Map ↗</a>` : ''}
+                    </td>
+                    <td><button class="btn btn-d" onclick="del(${item.id})">Del</button></td>
+                `;
+                list.appendChild(tr);
+            }
+        });
+        updateStats();
+    }
+
+    function init() {
+        if(sessionStorage.getItem('auth')) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app-screen').style.display = 'flex';
+            render();
+        }
+    }
+    init();
 </script>
-
 </body>
 </html>
