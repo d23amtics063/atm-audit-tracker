@@ -4,183 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ATM Audit System</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0d0f14; --surface: #151820; --surface2: #1c2030;
-            --border: #2a3050; --accent: #4f8ef7; --green: #34d399;
-            --red: #f87171; --text: #e8eaf2; --text2: #8b93b0;
+            --bg: #0d1117; --card: #161b22; --border: #30363d;
+            --accent: #58a6ff; --green: #238636; --red: #da3633;
+            --text: #c9d1d9; --text-dim: #8b949e;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        body { background: var(--bg); color: var(--text); line-height: 1.5; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
-
-        /* Login Layout */
-        #login-screen { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 30px; width: 100%; max-width: 360px; }
+        /* Login */
+        #login-page { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-box { background: var(--card); border: 1px solid var(--border); padding: 32px; border-radius: 8px; width: 100%; max-width: 340px; }
         
         /* App Layout */
-        #app-screen { display: none; flex-direction: column; min-height: 100vh; }
-        .topbar { background: var(--surface); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        #app-page { display: none; }
+        nav { background: var(--card); padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
-        .stat-item { background: var(--surface); padding: 15px; text-align: center; }
-        .stat-val { font-family: 'IBM Plex Mono'; font-weight: 600; font-size: 1.2rem; color: var(--accent); }
-        .stat-lab { font-size: 0.7rem; color: var(--text2); text-transform: uppercase; margin-top: 4px; }
+        .container { padding: 16px; max-width: 1100px; margin: 0 auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: var(--card); border: 1px solid var(--border); padding: 12px; border-radius: 6px; text-align: center; }
+        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--accent); }
+        .stat-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; }
 
-        .container { padding: 15px; max-width: 1000px; margin: 0 auto; width: 100%; }
-        
-        /* Inputs & Tables */
-        input { background: var(--surface2); border: 1px solid var(--border); color: white; padding: 10px; border-radius: 6px; outline: none; width: 100%; font-size: 14px; }
+        /* Forms */
+        .entry-form { background: var(--card); border: 1px solid var(--border); padding: 16px; border-radius: 8px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .span-2 { grid-column: span 2; }
+        input { background: #0d1117; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 6px; width: 100%; outline: none; margin-bottom: 10px; }
         input:focus { border-color: var(--accent); }
         
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .full { grid-column: span 2; }
+        .btn { padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; }
+        .btn-main { background: var(--green); color: white; width: 100%; }
+        .btn-del { background: transparent; border: 1px solid var(--red); color: var(--red); }
+        .btn-del:hover { background: var(--red); color: white; }
+
+        /* Table */
+        .table-scroll { overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; min-width: 750px; }
+        th { background: #1b2129; text-align: left; padding: 12px; font-size: 12px; color: var(--text-dim); border-bottom: 1px solid var(--border); }
+        td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .cell-edit { background: transparent; border: 1px solid transparent; width: 100%; margin: 0; }
+        .cell-edit:focus { background: #0d1117; border-color: var(--border); }
         
-        .btn { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; }
-        .btn-p { background: var(--accent); color: white; width: 100%; }
-        .btn-d { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); font-size: 12px; }
-
-        .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-top: 15px; }
-        table { width: 100%; border-collapse: collapse; min-width: 700px; }
-        th { text-align: left; padding: 12px; font-size: 11px; color: var(--text2); text-transform: uppercase; border-bottom: 1px solid var(--border); }
-        td { padding: 10px; border-bottom: 1px solid var(--border); }
-
-        .map-link { color: var(--accent); text-decoration: none; font-size: 11px; margin-top: 5px; display: block; }
-        #error { color: var(--red); font-size: 13px; margin-bottom: 10px; display: none; }
+        .map-btn { color: var(--accent); text-decoration: none; font-size: 11px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="card">
-        <h2 style="margin-bottom: 20px;">ATM Audit Login</h2>
-        <div id="error">Invalid Credentials</div>
-        <input type="text" id="user" placeholder="Username" style="margin-bottom: 10px;">
-        <input type="password" id="pass" placeholder="Password" style="margin-bottom: 20px;">
-        <button class="btn btn-p" onclick="login()">Sign In</button>
+<div id="login-page">
+    <div class="login-box">
+        <h2 style="margin-bottom: 20px; text-align: center;">ATM Audit</h2>
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button class="btn btn-main" onclick="handleLogin()">Sign In</button>
+        <p id="err" style="color:var(--red); font-size: 12px; margin-top: 10px; display: none; text-align: center;">Invalid credentials</p>
     </div>
 </div>
 
-<div id="app-screen">
-    <div class="topbar">
-        <strong>🏧 ATM AUDIT</strong>
-        <button class="btn btn-d" onclick="logout()">Logout</button>
-    </div>
-
-    <div class="stats">
-        <div class="stat-item"><div class="stat-val" id="st-total">0</div><div class="stat-lab">Total</div></div>
-        <div class="stat-item"><div class="stat-val" id="st-fill" style="color:var(--green)">0</div><div class="stat-lab">Filled</div></div>
-        <div class="stat-item"><div class="stat-val" id="st-map" style="color:var(--accent)">0</div><div class="stat-lab">Maps</div></div>
-    </div>
+<div id="app-page">
+    <nav>
+        <strong>🏧 ATM TRACKER</strong>
+        <button class="btn btn-del" onclick="handleLogout()" style="padding: 5px 10px; font-size: 12px;">Logout</button>
+    </nav>
 
     <div class="container">
-        <div class="card" style="max-width: none;">
-            <div class="form-grid">
-                <input id="f-term" placeholder="Terminal #">
-                <input id="f-area" placeholder="Area">
-                <input id="f-addr" class="full" placeholder="Address">
-                <input id="f-map" class="full" placeholder="Google Maps URL">
-            </div>
-            <button class="btn btn-p" onclick="addATM()">+ ADD TERMINAL</button>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-val" id="count-total">0</div><div class="stat-label">Total</div></div>
+            <div class="stat-card"><div class="stat-val" id="count-maps" style="color:var(--accent)">0</div><div class="stat-label">Maps</div></div>
         </div>
 
-        <input type="text" id="search" placeholder="🔍 Search Terminals..." oninput="render()" style="margin-top: 20px;">
+        <div class="entry-form">
+            <div class="grid">
+                <input id="in-term" placeholder="Terminal ID">
+                <input id="in-area" placeholder="Area">
+                <input id="in-addr" class="span-2" placeholder="Full Address">
+                <input id="in-link" class="span-2" placeholder="Google Maps Link">
+            </div>
+            <button class="btn btn-main" onclick="addItem()">Add ATM Entry</button>
+        </div>
 
-        <div class="table-wrap">
+        <input type="text" id="search" placeholder="🔍 Quick Search..." oninput="renderTable()" style="margin-bottom: 15px; background: var(--card);">
+
+        <div class="table-scroll">
             <table>
                 <thead>
-                    <tr><th>Sr</th><th>Terminal</th><th>Address</th><th>Area</th><th>Map</th><th>Action</th></tr>
+                    <tr>
+                        <th width="50">Sr.</th>
+                        <th>Terminal</th>
+                        <th>Address</th>
+                        <th>Area</th>
+                        <th>Location</th>
+                        <th width="80">Action</th>
+                    </tr>
                 </thead>
-                <tbody id="list"></tbody>
+                <tbody id="table-body"></tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    const CREDS = { u: 'harshkiller', p: 'honey853' };
-    const KEY = 'atm_data_v1';
+    const CONFIG = { u: 'harshkiller', p: 'honey853', key: 'atm_storage_v4' };
 
-    function login() {
+    function handleLogin() {
         const u = document.getElementById('user').value;
         const p = document.getElementById('pass').value;
-        if(u === CREDS.u && p === CREDS.p) {
-            sessionStorage.setItem('auth', '1');
-            init();
+        if(u === CONFIG.u && p === CONFIG.p) {
+            sessionStorage.setItem('isAuth', 'true');
+            checkAuth();
         } else {
-            document.getElementById('error').style.display = 'block';
+            document.getElementById('err').style.display = 'block';
         }
     }
 
-    function logout() {
+    function handleLogout() {
         sessionStorage.clear();
         location.reload();
     }
 
-    function getData() { return JSON.parse(localStorage.getItem(KEY)) || []; }
-    function setData(d) { localStorage.setItem(KEY, JSON.stringify(d)); render(); }
-
-    function addATM() {
-        const t = document.getElementById('f-term').value;
-        if(!t) return;
-        const d = getData();
-        d.push({ id: Date.now(), t, ar: document.getElementById('f-area').value, ad: document.getElementById('f-addr').value, m: document.getElementById('f-map').value });
-        ['f-term','f-area','f-addr','f-map'].forEach(i => document.getElementById(i).value = '');
-        setData(d);
+    function checkAuth() {
+        if(sessionStorage.getItem('isAuth')) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app-page').style.display = 'block';
+            renderTable();
+        }
     }
 
-    function del(id) { if(confirm('Delete?')) setData(getData().filter(x => x.id !== id)); }
+    function getData() { return JSON.parse(localStorage.getItem(CONFIG.key)) || []; }
+    function setData(data) { localStorage.setItem(CONFIG.key, JSON.stringify(data)); renderTable(); }
 
-    function update(id, field, val) {
-        const d = getData();
-        const i = d.findIndex(x => x.id === id);
-        d[i][field] = val;
-        localStorage.setItem(KEY, JSON.stringify(d));
-        updateStats(); // Quiet save
-    }
-
-    function updateStats() {
-        const d = getData();
-        document.getElementById('st-total').innerText = d.length;
-        document.getElementById('st-fill').innerText = d.filter(x => x.t).length;
-        document.getElementById('st-map').innerText = d.filter(x => x.m).length;
-    }
-
-    function render() {
-        const query = document.getElementById('search').value.toLowerCase();
-        const list = document.getElementById('list');
+    function addItem() {
+        const t = document.getElementById('in-term').value;
+        if(!t) return alert('Enter Terminal ID');
         const data = getData();
-        list.innerHTML = '';
-        
-        data.forEach((item, idx) => {
+        data.push({
+            id: Date.now(),
+            t: t,
+            ar: document.getElementById('in-area').value,
+            ad: document.getElementById('in-addr').value,
+            m: document.getElementById('in-link').value
+        });
+        ['in-term','in-area','in-addr','in-link'].forEach(id => document.getElementById(id).value = '');
+        setData(data);
+    }
+
+    function updateItem(id, field, val) {
+        const data = getData();
+        const i = data.findIndex(x => x.id === id);
+        if(i > -1) {
+            data[i][field] = val;
+            localStorage.setItem(CONFIG.key, JSON.stringify(data));
+            updateStats(data);
+        }
+    }
+
+    function deleteItem(id) {
+        if(confirm('Delete this record?')) {
+            const data = getData().filter(x => x.id !== id);
+            setData(data);
+        }
+    }
+
+    function updateStats(data) {
+        document.getElementById('count-total').innerText = data.length;
+        document.getElementById('count-maps').innerText = data.filter(x => x.m).length;
+    }
+
+    function renderTable() {
+        const data = getData();
+        const query = document.getElementById('search').value.toLowerCase();
+        const body = document.getElementById('table-body');
+        body.innerHTML = '';
+
+        data.forEach((item, index) => {
             if(item.t.toLowerCase().includes(query) || item.ar.toLowerCase().includes(query)) {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="color:var(--text2)">${idx + 1}</td>
-                    <td><input value="${item.t}" onchange="update(${item.id},'t',this.value)"></td>
-                    <td><input value="${item.ad}" onchange="update(${item.id},'ad',this.value)"></td>
-                    <td><input value="${item.ar}" onchange="update(${item.id},'ar',this.value)"></td>
+                    <td>${index + 1}</td>
+                    <td><input class="cell-edit" value="${item.t}" onchange="updateItem(${item.id}, 't', this.value)"></td>
+                    <td><input class="cell-edit" value="${item.ad}" onchange="updateItem(${item.id}, 'ad', this.value)"></td>
+                    <td><input class="cell-edit" value="${item.ar}" onchange="updateItem(${item.id}, 'ar', this.value)"></td>
                     <td>
-                        <input value="${item.m}" onchange="update(${item.id},'m',this.value)" style="color:var(--accent)">
-                        ${item.m ? `<a href="${item.m}" target="_blank" class="map-link">Open Map ↗</a>` : ''}
+                        <input class="cell-edit" value="${item.m}" onchange="updateItem(${item.id}, 'm', this.value)" style="color:var(--accent)">
+                        ${item.m ? `<a href="${item.m}" target="_blank" class="map-btn">MAP ↗</a>` : ''}
                     </td>
-                    <td><button class="btn btn-d" onclick="del(${item.id})">Del</button></td>
+                    <td><button class="btn-del" onclick="deleteItem(${item.id})" style="padding:4px 8px;">Del</button></td>
                 `;
-                list.appendChild(tr);
+                body.appendChild(tr);
             }
         });
-        updateStats();
+        updateStats(data);
     }
 
-    function init() {
-        if(sessionStorage.getItem('auth')) {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-screen').style.display = 'flex';
-            render();
-        }
-    }
-    init();
+    // Initial load
+    checkAuth();
 </script>
 </body>
 </html>
