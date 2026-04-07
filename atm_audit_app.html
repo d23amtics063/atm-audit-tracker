@@ -46,9 +46,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%),
-    var(--bg);
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%), var(--bg);
 }
 
 .login-card {
@@ -86,912 +84,300 @@ body {
   font-size: 20px;
 }
 
-.login-logo-text {
-  font-family: var(--mono);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0.5px;
-}
+.login-logo-text { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
+.login-logo-sub { font-size: 11px; color: var(--text3); font-family: var(--mono); letter-spacing: 1px; text-transform: uppercase; }
+.login-title { font-size: 22px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.3px; }
+.login-sub { font-size: 13px; color: var(--text2); margin-bottom: 28px; }
 
-.login-logo-sub {
-  font-size: 11px;
-  color: var(--text3);
-  font-family: var(--mono);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.login-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  letter-spacing: -0.3px;
-}
-
-.login-sub {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 28px;
-}
-
-.field {
-  margin-bottom: 16px;
-}
-
-.field label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 6px;
-  font-family: var(--mono);
-}
-
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; font-family: var(--mono); }
 .field input {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 14px;
-  padding: 11px 14px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
+  width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text); font-family: var(--mono); font-size: 14px; padding: 11px 14px; outline: none; transition: all 0.2s;
 }
-
-.field input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-}
-
-.field input::placeholder { color: var(--text3); }
+.field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 
 #login-error {
-  display: none;
-  background: rgba(248,113,113,0.1);
-  border: 1px solid rgba(248,113,113,0.3);
-  color: var(--red);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-size: 13px;
-  margin-bottom: 16px;
+  display: none; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+  color: var(--red); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; margin-bottom: 16px;
 }
 
 .btn-primary {
-  width: 100%;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 13px;
-  cursor: pointer;
-  letter-spacing: 0.2px;
-  transition: background 0.15s, transform 0.1s;
-  -webkit-tap-highlight-color: transparent;
+  width: 100%; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm);
+  font-weight: 600; padding: 13px; cursor: pointer; transition: all 0.15s;
 }
-
 .btn-primary:active { transform: scale(0.98); background: var(--accent2); }
-
-.login-footer {
-  margin-top: 20px;
-  font-size: 11px;
-  color: var(--text3);
-  text-align: center;
-  font-family: var(--mono);
-}
 
 /* ── APP ── */
 #app-screen { display: none; min-height: 100vh; flex-direction: column; }
 
-/* Top bar */
 .topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 200;
+  background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200;
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.topbar-left { display: flex; align-items: center; gap: 10px; }
+.topbar-title { font-family: var(--mono); font-size: 14px; font-weight: 600; }
+.topbar-badge { background: var(--accent-glow); border: 1px solid var(--border2); color: var(--accent); font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 20px; }
 
-.topbar-icon {
-  font-size: 20px;
-  line-height: 1;
-}
-
-.topbar-title {
-  font-family: var(--mono);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.topbar-badge {
-  background: var(--accent-glow);
-  border: 1px solid var(--border2);
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 20px;
-}
-
-.btn-logout {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-family: var(--mono);
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-  -webkit-tap-highlight-color: transparent;
-}
+.btn-logout { background: var(--surface2); border: 1px solid var(--border); color: var(--text2); border-radius: var(--radius-sm); font-size: 12px; padding: 6px 12px; cursor: pointer; }
 .btn-logout:hover { border-color: var(--red); color: var(--red); }
 
-/* Stats bar */
-.stats-bar {
-  display: flex;
-  gap: 1px;
-  background: var(--border);
-  border-bottom: 1px solid var(--border);
-}
+.stats-bar { display: flex; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+.stat-cell { flex: 1; background: var(--surface); padding: 10px 14px; text-align: center; }
+.stat-num { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--accent); }
+.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; font-family: var(--mono); margin-top: 3px; }
 
-.stat-cell {
-  flex: 1;
-  background: var(--surface);
-  padding: 10px 14px;
-  text-align: center;
-}
+.main { flex: 1; padding: 16px; max-width: 1000px; margin: 0 auto; width: 100%; }
 
-.stat-num {
-  font-family: var(--mono);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1;
-}
+.add-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; position: relative; }
+.add-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
 
-.stat-label {
-  font-size: 10px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-top: 3px;
-  font-family: var(--mono);
-}
-
-/* Main content */
-.main {
-  flex: 1;
-  padding: 16px;
-  max-width: 900px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Add form */
-.add-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px;
-  margin-bottom: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-.add-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--accent);
-}
-
-.section-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
-  padding-left: 8px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 .form-grid .full { grid-column: 1 / -1; }
+.form-input { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); padding: 10px 12px; width: 100%; outline: none; }
+.form-input:focus { border-color: var(--accent); }
 
-.form-input {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 13px;
-  padding: 9px 12px;
-  width: 100%;
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  -webkit-appearance: none;
-}
-.form-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-glow);
-}
-.form-input::placeholder { color: var(--text3); font-size: 12px; }
+.btn-add { background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 600; padding: 12px; cursor: pointer; width: 100%; }
 
-.btn-add {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 20px;
-  cursor: pointer;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: background 0.15s, transform 0.1s;
-  -webkit-tap-highlight-color: transparent;
-}
-.btn-add:active { transform: scale(0.98); background: var(--accent2); }
+.search-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+#search-input { flex: 1; background: none; border: none; color: var(--text); outline: none; font-size: 14px; }
 
-/* Search */
-.search-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; min-width: 800px; border-collapse: collapse; }
+thead th { background: var(--surface3); font-family: var(--mono); font-size: 10px; color: var(--text3); padding: 12px; text-align: left; border-bottom: 1px solid var(--border); text-transform: uppercase; }
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+td { padding: 8px; }
 
-.search-icon { color: var(--text3); font-size: 15px; flex-shrink: 0; }
+.cell-input { background: transparent; border: 1px solid transparent; color: var(--text); padding: 6px; width: 100%; border-radius: 4px; outline: none; }
+.cell-input:focus { background: var(--surface3); border-color: var(--accent); }
+.map-link { color: var(--accent); text-decoration: none; font-size: 11px; font-family: var(--mono); margin-top: 4px; display: inline-block; }
 
-#search-input {
-  flex: 1;
-  background: none;
-  border: none;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 14px;
-  outline: none;
-}
-#search-input::placeholder { color: var(--text3); }
+.btn-del { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); color: var(--red); padding: 4px 8px; border-radius: 4px; cursor: pointer; }
 
-#search-count {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text3);
-  white-space: nowrap;
-}
-
-/* Table */
-.table-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-
-.table-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-table {
-  width: 100%;
-  min-width: 680px;
-  border-collapse: collapse;
-}
-
-thead th {
-  background: var(--surface3);
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--text3);
-  padding: 10px 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-  position: sticky;
-  top: 0;
-}
-
-thead th:first-child { width: 46px; text-align: center; }
-thead th:nth-child(2) { min-width: 120px; }
-thead th:nth-child(3) { min-width: 180px; }
-thead th:nth-child(4) { min-width: 110px; }
-thead th:nth-child(5) { min-width: 110px; }
-thead th:last-child { width: 70px; text-align: center; }
-
-tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background 0.1s;
-}
-
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: var(--surface2); }
-tbody tr.hidden { display: none; }
-
-td {
-  padding: 3px 4px;
-  vertical-align: middle;
-}
-
-td:first-child {
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text3);
-  font-weight: 600;
-  width: 46px;
-  padding: 0 4px;
-}
-
-td.action-cell {
-  text-align: center;
-  padding: 0 6px;
-  width: 70px;
-}
-
-.cell-input {
-  background: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 13px;
-  padding: 6px 8px;
-  width: 100%;
-  outline: none;
-  transition: border-color 0.15s, background 0.15s;
-  -webkit-appearance: none;
-}
-
-.cell-input:focus {
-  background: var(--surface3);
-  border-color: var(--accent);
-}
-
-.cell-input.map-input { color: var(--accent); }
-.cell-input.map-input::placeholder { color: var(--text3); }
-
-.map-open-btn {
-  display: inline-block;
-  background: var(--accent-glow);
-  border: 1px solid var(--border2);
-  color: var(--accent);
-  font-size: 10px;
-  font-family: var(--mono);
-  padding: 3px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  text-decoration: none;
-  margin-top: 2px;
-}
-.map-open-btn:hover { background: rgba(79,142,247,0.28); }
-
-.btn-del {
-  background: rgba(248,113,113,0.08);
-  border: 1px solid rgba(248,113,113,0.2);
-  color: var(--red);
-  border-radius: 4px;
-  font-size: 12px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-family: var(--mono);
-  transition: background 0.15s;
-  -webkit-tap-highlight-color: transparent;
-  white-space: nowrap;
-}
-.btn-del:hover { background: rgba(248,113,113,0.18); }
-
-.empty-state {
-  text-align: center;
-  padding: 48px 20px;
-  color: var(--text3);
-  font-family: var(--mono);
-  font-size: 12px;
-  display: none;
-}
-
-.empty-state .empty-icon { font-size: 32px; margin-bottom: 10px; }
-
-.save-toast {
-  position: fixed;
-  bottom: 24px;
-  right: 16px;
-  background: var(--surface3);
-  border: 1px solid var(--green);
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 12px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.25s, transform 0.25s;
-  pointer-events: none;
-  z-index: 999;
-}
-.save-toast.show { opacity: 1; transform: translateY(0); }
-
-/* Confirm dialog */
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 500;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: center; justify-content: center; }
 .overlay.show { display: flex; }
+.confirm-card { background: var(--surface); border: 1px solid var(--border2); padding: 24px; border-radius: var(--radius); max-width: 300px; text-align: center; }
 
-.confirm-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  padding: 24px;
-  max-width: 320px;
-  width: 100%;
-}
-
-.confirm-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.confirm-sub {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.confirm-btns { display: flex; gap: 10px; }
-
-.btn-cancel {
-  flex: 1;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-family: var(--sans);
-  padding: 10px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.btn-confirm-del {
-  flex: 1;
-  background: rgba(248,113,113,0.15);
-  border: 1px solid rgba(248,113,113,0.35);
-  color: var(--red);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--sans);
-  padding: 10px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
+.save-toast { position: fixed; bottom: 20px; right: 20px; background: var(--green); color: #000; padding: 8px 16px; border-radius: 20px; font-weight: 600; opacity: 0; transition: 0.3s; pointer-events: none; }
+.save-toast.show { opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
       <div class="login-logo-icon">🏧</div>
       <div>
         <div class="login-logo-text">ATM Audit</div>
-        <div class="login-logo-sub">Secure Access</div>
+        <div class="login-logo-sub">Internal Portal</div>
       </div>
     </div>
     <div class="login-title">Sign In</div>
-    <div class="login-sub">Enter your credentials to access the audit dashboard.</div>
     <div class="field">
       <label>Username</label>
-      <input type="text" id="uname" placeholder="Enter username" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <input type="text" id="uname" placeholder="harshkiller">
     </div>
     <div class="field">
       <label>Password</label>
-      <input type="password" id="pword" placeholder="Enter password" autocomplete="off">
+      <input type="password" id="pword" placeholder="••••••••">
     </div>
-    <div id="login-error">⚠ Incorrect username or password. Try again.</div>
+    <div id="login-error">⚠ Invalid credentials</div>
     <button class="btn-primary" onclick="doLogin()">Sign In →</button>
-    <div class="login-footer">Private system · No signup available</div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app-screen">
-
   <div class="topbar">
     <div class="topbar-left">
-      <span class="topbar-icon">🏧</span>
       <span class="topbar-title">ATM Audit</span>
-      <span class="topbar-badge" id="atm-count-badge">0 ATMs</span>
+      <span class="topbar-badge" id="badge-count">0 ATMs</span>
     </div>
     <button class="btn-logout" onclick="doLogout()">Logout</button>
   </div>
 
   <div class="stats-bar">
-    <div class="stat-cell">
-      <div class="stat-num" id="stat-total">0</div>
-      <div class="stat-label">Total</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num" id="stat-filled" style="color:var(--green)">0</div>
-      <div class="stat-label">Filled</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num" id="stat-empty" style="color:var(--amber)">0</div>
-      <div class="stat-label">Empty</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num" id="stat-maps" style="color:var(--accent)">0</div>
-      <div class="stat-label">Maps</div>
-    </div>
+    <div class="stat-cell"><div class="stat-num" id="s-total">0</div><div class="stat-label">Total</div></div>
+    <div class="stat-cell"><div class="stat-num" id="s-filled" style="color:var(--green)">0</div><div class="stat-label">Filled</div></div>
+    <div class="stat-cell"><div class="stat-num" id="s-maps" style="color:var(--accent)">0</div><div class="stat-label">Maps</div></div>
   </div>
 
   <div class="main">
-
-    <!-- Add Form -->
     <div class="add-card">
-      <div class="section-label">➕ Insert New ATM</div>
       <div class="form-grid">
-        <input class="form-input" id="f-terminal" type="text" placeholder="Terminal Number" autocomplete="off">
-        <input class="form-input" id="f-area" type="text" placeholder="Area" autocomplete="off">
-        <input class="form-input full" id="f-address" type="text" placeholder="Address" autocomplete="off">
-        <input class="form-input full" id="f-maps" type="url" placeholder="Google Maps Link (https://...)" autocomplete="off" inputmode="url">
+        <input class="form-input" id="f-terminal" placeholder="Terminal Number">
+        <input class="form-input" id="f-area" placeholder="Area">
+        <input class="form-input full" id="f-address" placeholder="Full Address">
+        <input class="form-input full" id="f-maps" placeholder="Google Maps URL">
       </div>
-      <button class="btn-add" onclick="addATM()">
-        <span>+</span> INSERT / ADD ATM
-      </button>
+      <button class="btn-add" onclick="addATM()">+ ADD NEW ATM</button>
     </div>
 
-    <!-- Search -->
     <div class="search-card">
-      <span class="search-icon">🔍</span>
-      <input id="search-input" type="search" placeholder="Search by Terminal No, Address, or Area..." autocomplete="off">
-      <span id="search-count"></span>
+      <span>🔍</span>
+      <input id="search-input" placeholder="Search by terminal or area..." oninput="filterTable()">
     </div>
 
-    <!-- Table -->
     <div class="table-card">
       <div class="table-scroll">
-        <table id="atm-table">
+        <table>
           <thead>
             <tr>
-              <th>Sr</th>
-              <th>Terminal No</th>
+              <th style="width:50px">Sr</th>
+              <th>Terminal</th>
               <th>Address</th>
               <th>Area</th>
-              <th>Maps Link</th>
-              <th>Action</th>
+              <th>Map</th>
+              <th style="width:80px">Action</th>
             </tr>
           </thead>
           <tbody id="table-body"></tbody>
         </table>
-        <div class="empty-state" id="empty-state">
-          <div class="empty-icon">🏧</div>
-          No ATMs found. Add one above or adjust your search.
-        </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- Delete Confirm -->
 <div class="overlay" id="confirm-overlay">
   <div class="confirm-card">
-    <div class="confirm-title">Delete this ATM?</div>
-    <div class="confirm-sub" id="confirm-msg">This action cannot be undone.</div>
-    <div class="confirm-btns">
-      <button class="btn-cancel" onclick="closeConfirm()">Cancel</button>
-      <button class="btn-confirm-del" onclick="confirmDelete()">Delete</button>
-    </div>
+    <h3>Delete ATM?</h3>
+    <p style="color:var(--text2); margin: 10px 0 20px;">This cannot be undone.</p>
+    <button class="btn-logout" onclick="closeConfirm()">Cancel</button>
+    <button class="btn-del" onclick="confirmDelete()" style="padding:8px 16px; margin-left:10px">Delete</button>
   </div>
 </div>
 
-<div class="save-toast" id="save-toast">✓ Saved</div>
+<div class="save-toast" id="toast">Saved</div>
 
 <script>
-// ── AUTH ──
 const CREDS = { user: 'harshkiller', pass: 'honey853' };
-const AUTH_KEY = 'atm_auth_v1';
-const DATA_KEY = 'atm_data_v2';
+const DATA_KEY = 'atm_audit_data_v3';
 
+// ── AUTH LOGIC ──
 function doLogin() {
-  const u = document.getElementById('uname').value.trim();
-  const p = document.getElementById('pword').value;
-  if (u === CREDS.user && p === CREDS.pass) {
-    sessionStorage.setItem(AUTH_KEY, '1');
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app-screen').style.display = 'flex';
-    initApp();
-  } else {
-    document.getElementById('login-error').style.display = 'block';
-    document.getElementById('pword').value = '';
-  }
+    const u = document.getElementById('uname').value;
+    const p = document.getElementById('pword').value;
+    if(u === CREDS.user && p === CREDS.pass) {
+        sessionStorage.setItem('atm_auth', 'true');
+        showApp();
+    } else {
+        document.getElementById('login-error').style.display = 'block';
+    }
 }
 
 function doLogout() {
-  sessionStorage.removeItem(AUTH_KEY);
-  document.getElementById('app-screen').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('uname').value = '';
-  document.getElementById('pword').value = '';
+    sessionStorage.removeItem('atm_auth');
+    location.reload();
 }
 
-document.getElementById('pword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-document.getElementById('uname').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('pword').focus(); });
-
-if (sessionStorage.getItem(AUTH_KEY) === '1') {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app-screen').style.display = 'flex';
-  initApp();
+function showApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'flex';
+    renderTable();
 }
 
-// ── DATA ──
-function loadData() {
-  try { return JSON.parse(localStorage.getItem(DATA_KEY)) || []; } catch(e) { return []; }
+// ── DATA LOGIC ──
+function getData() {
+    return JSON.parse(localStorage.getItem(DATA_KEY)) || [];
 }
 
 function saveData(data) {
-  localStorage.setItem(DATA_KEY, JSON.stringify(data));
-  showToast();
-}
-
-let toastTimer;
-function showToast() {
-  const t = document.getElementById('save-toast');
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
-}
-
-// ── APP ──
-let deleteTargetId = null;
-let saveTimer = null;
-
-function initApp() {
-  renderTable(loadData());
-  document.getElementById('search-input').addEventListener('input', filterTable);
-}
-
-function esc(s) {
-  return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function renderTable(data) {
-  const tbody = document.getElementById('table-body');
-  tbody.innerHTML = '';
-  data.forEach(row => tbody.appendChild(buildRow(row)));
-  updateStats(data);
-  updateEmptyState();
-  updateBadge(data.length);
-}
-
-function buildRow(row) {
-  const tr = document.createElement('tr');
-  tr.dataset.id = row.id;
-
-  const mapVal = row.maps || '';
-  const mapBtn = mapVal.trim() ? `<a class="map-open-btn" href="${esc(mapVal)}" target="_blank" rel="noopener">↗ Open</a>` : '';
-
-  tr.innerHTML = `
-    <td>${row.sr}</td>
-    <td><input class="cell-input" data-field="terminal" value="${esc(row.terminal||'')}" placeholder="Terminal #" type="text"></td>
-    <td><input class="cell-input" data-field="address" value="${esc(row.address||'')}" placeholder="Address" type="text"></td>
-    <td><input class="cell-input" data-field="area" value="${esc(row.area||'')}" placeholder="Area" type="text"></td>
-    <td>
-      <input class="cell-input map-input" data-field="maps" value="${esc(mapVal)}" placeholder="Paste maps link..." type="text" style="color:${mapVal?'var(--accent)':''}">
-      ${mapBtn}
-    </td>
-    <td class="action-cell">
-      <button class="btn-del" onclick="requestDelete('${row.id}', '${esc(row.terminal||'Row')}')">Del</button>
-    </td>
-  `;
-
-  tr.querySelectorAll('.cell-input').forEach(inp => {
-    inp.addEventListener('input', () => {
-      if (inp.dataset.field === 'maps') {
-        inp.style.color = inp.value ? 'var(--accent)' : '';
-        updateMapBtn(tr, inp.value);
-      }
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => persistEdit(tr), 600);
-    });
-  });
-
-  return tr;
-}
-
-function updateMapBtn(tr, url) {
-  const cell = tr.querySelector('td:nth-child(5)');
-  let btn = cell.querySelector('.map-open-btn');
-  if (url.trim()) {
-    if (!btn) {
-      btn = document.createElement('a');
-      btn.className = 'map-open-btn';
-      btn.target = '_blank';
-      btn.rel = 'noopener';
-      btn.textContent = '↗ Open';
-      cell.appendChild(btn);
-    }
-    btn.href = url;
-  } else {
-    if (btn) btn.remove();
-  }
-}
-
-function persistEdit(tr) {
-  const id = tr.dataset.id;
-  const data = loadData();
-  const idx = data.findIndex(r => r.id == id);
-  if (idx === -1) return;
-  data[idx].terminal = tr.querySelector('[data-field="terminal"]').value;
-  data[idx].address  = tr.querySelector('[data-field="address"]').value;
-  data[idx].area     = tr.querySelector('[data-field="area"]').value;
-  data[idx].maps     = tr.querySelector('[data-field="maps"]').value;
-  saveData(data);
-  updateStats(data);
+    localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    updateStats();
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
 }
 
 function addATM() {
-  const terminal = document.getElementById('f-terminal').value.trim();
-  const address  = document.getElementById('f-address').value.trim();
-  const area     = document.getElementById('f-area').value.trim();
-  const maps     = document.getElementById('f-maps').value.trim();
+    const t = document.getElementById('f-terminal').value;
+    const ar = document.getElementById('f-area').value;
+    const ad = document.getElementById('f-address').value;
+    const m = document.getElementById('f-maps').value;
 
-  if (!terminal && !address && !area) {
-    document.getElementById('f-terminal').focus();
-    document.getElementById('f-terminal').style.borderColor = 'var(--red)';
-    setTimeout(() => document.getElementById('f-terminal').style.borderColor = '', 1500);
-    return;
-  }
+    if(!t && !ad) return alert("Please enter Terminal or Address");
 
-  const data = loadData();
-  const newRow = {
-    id: Date.now(),
-    sr: data.length + 1,
-    terminal, address, area, maps
-  };
-  data.push(newRow);
-  saveData(data);
-
-  document.getElementById('table-body').appendChild(buildRow(newRow));
-  updateStats(data);
-  updateBadge(data.length);
-  updateEmptyState();
-
-  ['f-terminal','f-address','f-area','f-maps'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('search-input').value = '';
-  document.querySelectorAll('tbody tr').forEach(r => r.classList.remove('hidden'));
-  updateSearchCount();
+    const data = getData();
+    data.push({ id: Date.now(), terminal: t, area: ar, address: ad, maps: m });
+    saveData(data);
+    
+    // Clear inputs
+    ['f-terminal','f-area','f-address','f-maps'].forEach(id => document.getElementById(id).value = '');
+    renderTable();
 }
 
-// ── DELETE ──
-function requestDelete(id, label) {
-  deleteTargetId = id;
-  document.getElementById('confirm-msg').textContent = `Delete ATM "${label}"? This cannot be undone.`;
-  document.getElementById('confirm-overlay').classList.add('show');
+let deleteId = null;
+function requestDelete(id) {
+    deleteId = id;
+    document.getElementById('confirm-overlay').classList.add('show');
 }
 
 function closeConfirm() {
-  document.getElementById('confirm-overlay').classList.remove('show');
-  deleteTargetId = null;
+    document.getElementById('confirm-overlay').classList.remove('show');
 }
 
 function confirmDelete() {
-  if (!deleteTargetId) return;
-  let data = loadData().filter(r => r.id != deleteTargetId);
-  data = data.map((r, i) => ({ ...r, sr: i + 1 }));
-  saveData(data);
-  renderTable(data);
-  filterTable();
-  closeConfirm();
+    let data = getData().filter(x => x.id !== deleteId);
+    saveData(data);
+    closeConfirm();
+    renderTable();
 }
 
-// ── SEARCH ──
+function updateCell(id, field, value) {
+    const data = getData();
+    const index = data.findIndex(x => x.id === id);
+    if(index > -1) {
+        data[index][field] = value;
+        saveData(data);
+    }
+}
+
+function renderTable() {
+    const tbody = document.getElementById('table-body');
+    const data = getData();
+    tbody.innerHTML = '';
+
+    data.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td style="font-family:var(--mono); color:var(--text3)">${index + 1}</td>
+            <td><input class="cell-input" value="${item.terminal}" onchange="updateCell(${item.id}, 'terminal', this.value)"></td>
+            <td><input class="cell-input" value="${item.address}" onchange="updateCell(${item.id}, 'address', this.value)"></td>
+            <td><input class="cell-input" value="${item.area}" onchange="updateCell(${item.id}, 'area', this.value)"></td>
+            <td>
+                <input class="cell-input" style="color:var(--accent)" value="${item.maps}" onchange="updateCell(${item.id}, 'maps', this.value)">
+                ${item.maps ? `<a href="${item.maps}" target="_blank" class="map-link">View Map ↗</a>` : ''}
+            </td>
+            <td><button class="btn-del" onclick="requestDelete(${item.id})">Del</button></td>
+        `;
+        tbody.appendChild(tr);
+    });
+    updateStats();
+}
+
 function filterTable() {
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  const rows = document.querySelectorAll('#table-body tr');
-  let visible = 0;
-
-  rows.forEach(tr => {
-    if (!q) { tr.classList.remove('hidden'); visible++; return; }
-    const t = (tr.querySelector('[data-field="terminal"]')?.value||'').toLowerCase();
-    const a = (tr.querySelector('[data-field="address"]')?.value||'').toLowerCase();
-    const ar= (tr.querySelector('[data-field="area"]')?.value||'').toLowerCase();
-    const show = t.includes(q) || a.includes(q) || ar.includes(q);
-    tr.classList.toggle('hidden', !show);
-    if (show) visible++;
-  });
-
-  updateSearchCount(q ? visible : null, rows.length);
-  updateEmptyState();
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const rows = document.querySelectorAll('#table-body tr');
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+    });
 }
 
-function updateSearchCount(visible, total) {
-  const el = document.getElementById('search-count');
-  if (visible !== null && visible !== undefined) {
-    el.textContent = `${visible}/${total}`;
-  } else {
-    el.textContent = '';
-  }
+function updateStats() {
+    const data = getData();
+    document.getElementById('s-total').innerText = data.length;
+    document.getElementById('badge-count').innerText = data.length + ' ATMs';
+    document.getElementById('s-filled').innerText = data.filter(x => x.terminal).length;
+    document.getElementById('s-maps').innerText = data.filter(x => x.maps).length;
 }
 
-function updateEmptyState() {
-  const rows = document.querySelectorAll('#table-body tr');
-  const anyVisible = Array.from(rows).some(r => !r.classList.contains('hidden'));
-  document.getElementById('empty-state').style.display = (rows.length === 0 || !anyVisible) ? 'block' : 'none';
-}
-
-function updateStats(data) {
-  const total = data.length;
-  const filled = data.filter(r => r.terminal || r.address).length;
-  const empty = total - filled;
-  const maps = data.filter(r => r.maps && r.maps.trim()).length;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-filled').textContent = filled;
-  document.getElementById('stat-empty').textContent = empty;
-  document.getElementById('stat-maps').textContent = maps;
-}
-
-function updateBadge(count) {
-  document.getElementById('atm-count-badge').textContent = count + ' ATMs';
-}
-
-document.getElementById('confirm-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeConfirm();
-});
+// ── INIT ──
+if(sessionStorage.getItem('atm_auth')) showApp();
 </script>
+
 </body>
 </html>
